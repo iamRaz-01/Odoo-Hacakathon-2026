@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: transitops
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/transitops?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true}
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+server:
+  error:
+    include-stacktrace: never
+app:
+  jwt:
+    # JWT_SECRET must be a Base64-encoded key of at least 32 bytes.
+    secret: ${JWT_SECRET:MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY=}
+    access-token-expiration: ${JWT_ACCESS_TOKEN_EXPIRATION:900000}
+    refresh-token-expiration: ${JWT_REFRESH_TOKEN_EXPIRATION:604800000}
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html

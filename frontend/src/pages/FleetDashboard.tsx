@@ -20,6 +20,7 @@ import SpeedIcon from '@mui/icons-material/Speed';
 import ReportProblemIcon from '@mui/icons-material/ReportProblem';
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import { useNavigate } from 'react-router-dom';
 
 import { useAuthStore } from '../store/authStore';
@@ -30,7 +31,7 @@ import { FleetUtilizationCard } from '../features/dashboard/FleetUtilizationCard
 import { FleetStatusChart } from '../features/dashboard/FleetStatusChart';
 import { FleetAlertsCard } from '../features/dashboard/FleetAlertsCard';
 
-export function DashboardPage() {
+export function FleetDashboard() {
   const navigate = useNavigate();
   const user = useAuthStore((state) => state.user);
   
@@ -59,7 +60,7 @@ export function DashboardPage() {
     <Box>
       <Box sx={{ mb: 4 }}>
         <Typography variant="h4" component="h1" sx={{ fontWeight: 'bold' }}>
-          Welcome back, {user?.firstName}
+          Fleet Dashboard
         </Typography>
         <Typography color="text.secondary">
           Monitor real-time fleet health, active utilization metrics, and critical alerts.
@@ -179,7 +180,7 @@ export function DashboardPage() {
                   fullWidth
                   variant="outlined"
                   startIcon={<DirectionsCarIcon />}
-                  onClick={() => navigate('/vehicles')}
+                  onClick={() => navigate('/fleet/vehicles')}
                   sx={{ justifyContent: 'flex-start', py: 1.2 }}
                 >
                   Manage Registry
@@ -187,8 +188,17 @@ export function DashboardPage() {
                 <Button
                   fullWidth
                   variant="outlined"
+                  startIcon={<LocalShippingIcon />}
+                  onClick={() => navigate('/trips')}
+                  sx={{ justifyContent: 'flex-start', py: 1.2 }}
+                >
+                  Manage Trips & Routes
+                </Button>
+                <Button
+                  fullWidth
+                  variant="outlined"
                   startIcon={<BuildIcon />}
-                  onClick={() => navigate('/vehicles')}
+                  onClick={() => navigate('/fleet/vehicles')}
                   sx={{ justifyContent: 'flex-start', py: 1.2 }}
                 >
                   Schedule Maintenance
@@ -197,7 +207,7 @@ export function DashboardPage() {
                   fullWidth
                   variant="outlined"
                   startIcon={<CloudUploadIcon />}
-                  onClick={() => navigate('/vehicles')}
+                  onClick={() => navigate('/fleet/vehicles')}
                   sx={{ justifyContent: 'flex-start', py: 1.2 }}
                 >
                   Upload Documents
@@ -206,7 +216,7 @@ export function DashboardPage() {
                   fullWidth
                   variant="outlined"
                   startIcon={<AnalyticsIcon />}
-                  onClick={() => navigate('/vehicles')}
+                  onClick={() => navigate('/fleet/vehicles')}
                   sx={{ justifyContent: 'flex-start', py: 1.2 }}
                 >
                   Check Dispatch Readiness
@@ -227,4 +237,5 @@ export function DashboardPage() {
     </Box>
   );
 }
-export default DashboardPage;
+
+export default FleetDashboard;

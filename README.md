@@ -1,5 +1,14 @@
 # 🚚 TransitOps - Smart Transport Operations Platform
 
+## Credentials to Login
+Admin: admin@transitops.local
+Fleet Manager: fleet@transitops.local
+Dispatcher: dispatcher@transitops.local
+Driver: driver@transitops.local
+Safety Officer: safety@transitops.local
+Finance: finance@transitops.local 
+password = TransitOps123!
+
 ## Overview
 
 TransitOps is an enterprise-grade Transport Operations Management System designed to digitize and streamline fleet operations for logistics organizations.

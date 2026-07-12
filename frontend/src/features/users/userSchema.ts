@@ -1,0 +1,3 @@
+import { z } from 'zod';
+export const userSchema = z.object({ firstName: z.string().trim().min(1, 'First name is required.').max(100), lastName: z.string().trim().min(1, 'Last name is required.').max(100), email: z.string().email('Enter a valid email address.'), password: z.string().max(128).optional(), roleId: z.coerce.number().int().positive('Select a role.') }).superRefine((value, context) => { if (value.password && (!/[A-Za-z]/.test(value.password) || !/\d/.test(value.password) || value.password.length < 12)) context.addIssue({ code: 'custom', path: ['password'], message: 'Password must be at least 12 characters with a letter and digit.' }); });
+export type UserValues = z.infer<typeof userSchema>;

@@ -1,0 +1,8 @@
+import { create } from 'zustand';
+import type { LoginResponse, User } from '../types/auth';
+const storageKey = 'transitops.auth';
+type Persisted = Pick<AuthState, 'accessToken' | 'refreshToken' | 'user'>;
+function load(): Persisted | null { const value = localStorage.getItem(storageKey) ?? sessionStorage.getItem(storageKey); return value ? JSON.parse(value) as Persisted : null; }
+const existing = load();
+interface AuthState { accessToken: string | null; refreshToken: string | null; user: User | null; remember: boolean; setSession: (response: LoginResponse, remember: boolean) => void; updateTokens: (accessToken: string, refreshToken: string) => void; clearSession: () => void; }
+export const useAuthStore = create<AuthState>((set, get) => ({ accessToken: existing?.accessToken ?? null, refreshToken: existing?.refreshToken ?? null, user: existing?.user ?? null, remember: localStorage.getItem(storageKey) !== null, setSession: (response, remember) => { const state = { accessToken: response.accessToken, refreshToken: response.refreshToken, user: response.user }; sessionStorage.removeItem(storageKey); localStorage.removeItem(storageKey); (remember ? localStorage : sessionStorage).setItem(storageKey, JSON.stringify(state)); set({ ...state, remember }); }, updateTokens: (accessToken, refreshToken) => { const state = get(); const value = JSON.stringify({ accessToken, refreshToken, user: state.user }); (state.remember ? localStorage : sessionStorage).setItem(storageKey, value); set({ accessToken, refreshToken }); }, clearSession: () => { localStorage.removeItem(storageKey); sessionStorage.removeItem(storageKey); set({ accessToken: null, refreshToken: null, user: null, remember: false }); } }));

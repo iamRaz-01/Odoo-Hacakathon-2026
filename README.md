@@ -7,7 +7,8 @@ Dispatcher: dispatcher@transitops.local
 Driver: driver@transitops.local
 Safety Officer: safety@transitops.local
 Finance: finance@transitops.local 
-password = TransitOps123!
+
+password(all roles) = TransitOps123!
 
 ## Overview
 
